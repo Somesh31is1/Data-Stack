@@ -1,12 +1,12 @@
-CREATE DATABASE StudentCourseManagement;
+CREATE DATABASE StudentCourseDB;
 
-USE StudentCourseManagement;
+USE StudentCourseDB;
 
 CREATE TABLE Student (
     rollno INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     address VARCHAR(200),
-    phno VARCHAR(15),
+    phno BIGINT,
     email_id VARCHAR(100) UNIQUE,
     marks INT CHECK (marks >= 0 AND marks <= 100)
 );
@@ -15,79 +15,73 @@ CREATE TABLE Courses (
     c_id INT PRIMARY KEY,
     cname VARCHAR(100) NOT NULL,
     rollno INT,
-    FOREIGN KEY (rollno) REFERENCES Student(rollno)
+    
+    FOREIGN KEY (rollno)
+    REFERENCES Student(rollno)
     ON DELETE CASCADE
 );
 
-DESC Student;
+INSERT INTO Student VALUES
+(1, 'Amit Sharma', 'Pune', 9876543210, 'amit@gmail.com', 85),
+(2, 'Priya Patil', 'Mumbai', 9876543211, 'priya@gmail.com', 92),
+(3, 'Rahul Verma', 'Delhi', 9876543212, 'rahul@gmail.com', 76),
+(4, 'Sneha Joshi', 'Nagpur', 9876543213, 'sneha@gmail.com', 88),
+(5, 'Karan Mehta', 'Nashik', 9876543214, 'karan@gmail.com', 67),
+(6, 'Neha Singh', 'Chennai', 9876543215, 'neha@gmail.com', 95),
+(7, 'Rohit Das', 'Kolkata', 9876543216, 'rohit@gmail.com', 81),
+(8, 'Pooja Nair', 'Kerala', 9876543217, 'pooja@gmail.com', 73);
 
-DESC Courses;
+INSERT INTO Courses VALUES
+(101, 'DBMS', 1),
+(102, 'Java', 2),
+(103, 'Python', 3),
+(104, 'Computer Networks', 4),
+(105, 'Operating Systems', 5),
+(106, 'Data Structures', 6),
+(107, 'Cloud Computing', 7),
+(108, 'Machine Learning', 8);
+
+SELECT * FROM Student;
+
+SELECT * FROM Courses;
+
+INSERT INTO Student VALUES
+(1, 'Test User', 'Pune', 9999999999, 'test@gmail.com', 80);
+
+INSERT INTO Student VALUES
+(9, NULL, 'Pune', 9999999999, 'null@gmail.com', 75);
+
+INSERT INTO Student VALUES
+(10, 'Same Email', 'Mumbai', 9999999998, 'amit@gmail.com', 70);
+
+INSERT INTO Student VALUES
+(11, 'Invalid Marks', 'Delhi', 9999999997, 'invalid@gmail.com', 150);
+
+INSERT INTO Courses VALUES
+(109, 'AI', 50);
 
 ALTER TABLE Student
 ADD age INT;
 
 DESC Student;
 
-ALTER TABLE Student
-RENAME COLUMN phno TO phone_no;
+RENAME TABLE Courses TO CourseDetails;
 
-DESC Student;
-
-RENAME TABLE Courses TO Course;
-
-DESC Course;
-
-INSERT INTO Student
-VALUES
-(1, 'Amit Sharma', 'Pune', '9876543210', 'amit@gmail.com', 85, 20),
-(2, 'Neha Patil', 'Mumbai', '9876543211', 'neha@gmail.com', 90, 21),
-(3, 'Rohit Verma', 'Nashik', '9876543212', 'rohit@gmail.com', 78, 22),
-(4, 'Sneha Kulkarni', 'Nagpur', '9876543213', 'sneha@gmail.com', 88, 20),
-(5, 'Karan Mehta', 'Delhi', '9876543214', 'karan@gmail.com', 67, 23),
-(6, 'Priya Singh', 'Pune', '9876543215', 'priya@gmail.com', 92, 21),
-(7, 'Rahul Joshi', 'Satara', '9876543216', 'rahul@gmail.com', 74, 22),
-(8, 'Anjali Deshmukh', 'Kolhapur', '9876543217', 'anjali@gmail.com', 81, 20);
-
-INSERT INTO Course
-VALUES
-(101, 'DBMS', 1),
-(102, 'Operating System', 2),
-(103, 'Computer Networks', 3),
-(104, 'Java', 4),
-(105, 'Python', 5),
-(106, 'Data Structures', 6),
-(107, 'AI', 7),
-(108, 'Machine Learning', 8);
-
-SELECT * FROM Student;
-
-SELECT * FROM Course;
-
-INSERT INTO Student
-VALUES
-(9, NULL, 'Pune', '9876543299', 'test@gmail.com', 80, 20);
-
-INSERT INTO Student
-VALUES
-(10, 'Test User', 'Pune', '9876543288', 'amit@gmail.com', 75, 21);
-
-INSERT INTO Student
-VALUES
-(11, 'Invalid Marks', 'Pune', '9876543277', 'invalid@gmail.com', 150, 22);
-
-INSERT INTO Course
-VALUES
-(109, 'Cyber Security', 50);
+SELECT * FROM CourseDetails;
 
 DELETE FROM Student
 WHERE rollno = 1;
 
 SELECT * FROM Student;
 
-SELECT * FROM Course;
+SELECT * FROM CourseDetails;
 
-TRUNCATE TABLE Course;
+TRUNCATE TABLE CourseDetails;
 
-DROP TABLE Course;
+SELECT * FROM CourseDetails;
+
+DROP TABLE CourseDetails;
 
 DROP TABLE Student;
+
+DROP DATABASE StudentCourseDB;
